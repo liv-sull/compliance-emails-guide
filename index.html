@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Compliance Emails Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #020E92;      /* Vocus Blue */
+    --blue-light: #E6E7F4; /* Lightest Vocus Blue 01 */
+    --blue-mid: #4E56B3;   /* Light Vocus Blue 03 */
+    --grey: #F1F0EE;       /* Vocus Grey */
+    --line: #DDDDE6;
+    --ink: #1A1A1A;
+    --font: "Moderat", "DM Sans", Arial, sans-serif;
+    --mono: ui-monospace, Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #FFFFFF;
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  a { color: var(--blue); }
+  button, input, select { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  [hidden] { display: none !important; }
+
+  .page { max-width: 780px; margin: 0 auto; padding: 40px 24px 80px; }
+  h1, h2, h3, h4 { color: var(--blue); line-height: 1.25; }
+  h1 { font-size: 34px; margin: 0 0 10px; }
+  .lede { margin: 0 0 28px; max-width: 38em; }
+
+  .details { border: 1px solid var(--line); padding: 18px 20px; margin-bottom: 28px; }
+  .details h2 { font-size: 17px; margin: 0 0 12px; }
+  .fields { display: flex; flex-wrap: wrap; gap: 14px 20px; }
+  .field label { display: block; font-size: 14px; margin-bottom: 4px; }
+  .field input, .field select {
+    border: 1px solid #B9BBD3; background: #fff; padding: 7px 10px; min-width: 120px; border-radius: 0;
+  }
+  .fy-wrap { display: flex; align-items: center; gap: 6px; }
+  .fy-wrap input { width: 80px; min-width: 0; }
+  .hint { font-size: 14px; color: #555; margin: 12px 0 0; }
+
+  .tabs { display: flex; gap: 28px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
+  .tab {
+    background: none; border: 0; padding: 10px 0; cursor: pointer;
+    font-size: 17px; font-weight: 500; color: #555;
+    border-bottom: 3px solid transparent; margin-bottom: -1px;
+  }
+  .tab[aria-selected="true"] { color: var(--blue); border-bottom-color: var(--blue); }
+  .tab small { font-weight: 400; font-size: 14px; margin-left: 4px; }
+
+  .intro { margin: 20px 0 4px; }
+  .intro-sub { margin: 0 0 8px; color: #555; }
+
+  .step { padding: 26px 0; border-bottom: 1px solid var(--line); scroll-margin-top: 16px; }
+  .step-num { display: none; }
+  .step h3 { font-size: 21px; margin: 0 0 6px; }
+  .step .why { margin: 0 0 10px; color: #555; }
+  .done-flag { font-size: 14px; font-weight: 500; color: var(--blue-mid); margin-left: 8px; }
+
+  .checks { list-style: none; margin: 0; padding: 0; }
+  .check { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 10px; padding: 7px 0; cursor: pointer; }
+  .check input {
+    appearance: none; -webkit-appearance: none;
+    width: 20px; height: 20px; margin: 2px 0 0;
+    border: 2px solid var(--blue); background: #fff; cursor: pointer;
+    display: grid; place-content: center;
+  }
+  .check input::after {
+    content: ""; width: 9px; height: 5px;
+    border-left: 2px solid #fff; border-bottom: 2px solid #fff;
+    transform: rotate(-45deg) translate(1px, -1px); opacity: 0;
+  }
+  .check input:checked { background: var(--blue); }
+  .check input:checked::after { opacity: 1; }
+  .check input:checked + .check-text { color: #777; }
+
+  .ui { font-weight: 700; }
+  .path { margin-top: 4px; }
+  .path span { font-weight: 700; }
+  .path span + span::before { content: " › "; font-weight: 400; }
+
+  .note { background: var(--grey); padding: 10px 14px; margin-top: 8px; font-size: 15px; }
+
+  .stop, .gate { border: 2px solid var(--blue); padding: 14px 18px; margin: 4px 0 12px; }
+  .gate { margin-top: 14px; }
+  .stop h4 { margin: 0 0 4px; font-size: 17px; }
+  .stop p { margin: 0; }
+  .finish {
+    margin-top: 10px; background: var(--blue); color: #fff; border: 0;
+    padding: 10px 18px; font-weight: 500; cursor: pointer;
+  }
+  .finish:disabled { background: #A6A6A6; cursor: not-allowed; }
+  .finish-note { font-size: 14px; margin: 6px 0 0; color: #555; }
+
+  .value-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; align-items: center; }
+  .value { font-family: var(--mono); font-size: 14px; background: var(--grey); padding: 4px 8px; }
+  .copy {
+    background: var(--blue); color: #fff; border: 0;
+    padding: 5px 12px; font-size: 14px; cursor: pointer;
+  }
+  .copy.copied { background: var(--blue-mid); }
+
+  .prompt-wrap { margin: 12px 0 0; border: 1px solid var(--line); }
+  .prompt-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 10px 8px 14px; border-bottom: 1px solid var(--line); font-size: 14px; }
+  .prompt {
+    margin: 0; padding: 14px; max-height: 320px; overflow: auto;
+    white-space: pre-wrap; word-break: break-word;
+    font-family: var(--mono); font-size: 13px; background: var(--grey);
+  }
+  .prompt mark { background: var(--blue-light); color: var(--blue); font-weight: 700; padding: 0 2px; }
+
+  .record { display: flex; flex-wrap: wrap; gap: 14px 24px; margin-top: 12px; }
+  .record label { display: block; font-size: 14px; margin-bottom: 4px; }
+  .record input { width: 160px; font-size: 18px; border: 1px solid #B9BBD3; padding: 6px 10px; border-radius: 0; }
+
+  .compare { margin-top: 12px; }
+  .compare .big { font-size: 26px; font-weight: 700; color: var(--blue); line-height: 1.4; }
+  .verdict { margin-top: 12px; padding: 10px 14px; background: var(--grey); border-left: 4px solid var(--blue); font-weight: 500; }
+  .verdict.bad { border-left-color: #FF8B2F; }
+
+  details.trouble { margin-top: 14px; }
+  details.trouble summary { cursor: pointer; font-weight: 700; color: var(--blue); }
+  details.trouble dt { font-weight: 700; margin-top: 10px; }
+  details.trouble dd { margin: 2px 0 0; }
+
+  .finale { padding: 24px 0 0; }
+  .finale p { margin: 0; font-weight: 500; color: var(--blue); }
+
+  .reset { margin-top: 28px; background: none; border: 0; padding: 0; color: #555; text-decoration: underline; cursor: pointer; font-size: 14px; }
+
+  @media (max-width: 600px) {
+    .page { padding: 24px 16px 60px; }
+    h1 { font-size: 28px; }
+    .tabs { gap: 18px; }
+    .tab small { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <h1>Compliance emails</h1>
+  <p class="lede">Each quarter this builds one draft email in Outlook for every people leader with compliance courses still outstanding in their team. Nothing sends by itself. You check the drafts and send them.</p>
+
+  <section class="details" aria-labelledby="qp-title">
+    <h2 id="qp-title">This quarter</h2>
+    <div class="fields">
+      <div class="field">
+        <label for="q">Quarter</label>
+        <select id="q">
+          <option>Q1</option><option>Q2</option><option>Q3</option><option>Q4</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="fy">Financial year</label>
+        <div class="fy-wrap"><span>FY</span><input id="fy" type="number" inputmode="numeric" min="26" max="99"></div>
+      </div>
+      <div class="field">
+        <label for="due">Due date for leaders</label>
+        <input id="due" type="date">
+      </div>
+    </div>
+    <p class="hint">Fill these in once. The page puts them into the Copilot prompt and the flow for you.</p>
+  </section>
+
+  <nav class="tabs" role="tablist" aria-label="Guide sections">
+    <button class="tab" role="tab" id="tab-quarter" aria-controls="panel-quarter" data-mode="quarter">Every quarter <small>about 20 min</small></button>
+    <button class="tab" role="tab" id="tab-setup" aria-controls="panel-setup" data-mode="setup">First-time setup <small>once, about 15 min</small></button>
+  </nav>
+
+  <main>
+    <section id="panel-quarter" role="tabpanel" aria-labelledby="tab-quarter">
+      <p class="intro">Work through these in order. Your ticks are saved for <b class="qlabel">this quarter</b>, so you can close the page and pick up where you left off.</p>
+      <p class="intro-sub">First time? Do <a href="#" data-goto="setup">First-time setup</a> before anything here.</p>
+      <div id="steps-quarter"></div>
+    </section>
+
+    <section id="panel-setup" role="tabpanel" aria-labelledby="tab-setup" hidden>
+      <p class="intro">You only do this once. It connects the flow to your OneDrive and Outlook, then runs a test that sends everything to you.</p>
+      <p class="intro-sub">Step 6 is the one that matters most.</p>
+      <div id="steps-setup"></div>
+    </section>
+
+    <button class="reset" id="reset" type="button">Clear ticks for this section</button>
+  </main>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // Copilot opens for any Microsoft 365 account from this address.
+  var COPILOT_URL = "https://m365.cloud.microsoft/chat";
+  var STORE_KEY = "vocus-compliance-guide-v1";
+
+  /* ---------- saved state (falls back to memory if storage is blocked) ---------- */
+  var state = { mode: null, setupDone: false, setup: {}, quarters: {}, current: {} };
+  try {
+    var saved = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
+    if (saved && typeof saved === "object") state = Object.assign(state, saved);
+  } catch (e) {}
+  function save() {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  /* ---------- quarter details ---------- */
+  function defaultQuarter() {
+    // Australian financial year: July to June.
+    var d = new Date(), m = d.getMonth(), y = d.getFullYear();
+    var fy = (m >= 6 ? y + 1 : y) % 100;
+    var q = m >= 6 && m <= 8 ? 1 : m >= 9 ? 2 : m <= 2 ? 3 : 4;
+    return { q: "Q" + q, fy: fy };
+  }
+  var qSel = document.getElementById("q");
+  var fyIn = document.getElementById("fy");
+  var dueIn = document.getElementById("due");
+  var def = defaultQuarter();
+  qSel.value = state.current.q || def.q;
+  fyIn.value = state.current.fy || def.fy;
+  dueIn.value = state.current.due || "";
+
+  function fyNum() { var n = parseInt(fyIn.value, 10); return isNaN(n) ? def.fy : n; }
+  function quarterLabel() { return qSel.value + " FY" + String(fyNum()).padStart(2, "0"); }
+  function dueLabel() {
+    if (!dueIn.value) return "";
+    var p = dueIn.value.split("-");
+    var d = new Date(+p[0], +p[1] - 1, +p[2]);
+    return d.toLocaleDateString("en-AU", { day: "numeric", month: "long", year: "numeric" });
+  }
+  function qState() {
+    var k = quarterLabel();
+    if (!state.quarters[k]) state.quarters[k] = { checks: {} };
+    return state.quarters[k];
+  }
+
+  // Old financial-year courses to leave out. The prompt was written for FY27,
+  // which excluded "FY26". Each later year also drops the year just gone.
+  function excludedYears() {
+    var out = [], cur = fyNum();
+    for (var y = 26; y < cur; y++) out.push("FY" + y);
+    return out;
+  }
+  function excludeList() {
+    var items = ['"[Retired]"', '"[Archive]"'].concat(excludedYears().map(function (y) { return '"' + y + '"'; }));
+    return items.slice(0, -1).join(", ") + " or " + items[items.length - 1];
+  }
+
+  /* ---------- the Copilot prompt ---------- */
+  function promptText(highlight) {
+    var ex = excludeList();
+    if (highlight) ex = "<mark>" + esc(ex) + "</mark>";
+    var lines = [
+      'The attached file is a Dayforce compliance training export. Row 1 is a report title block. The real column headings are in row 2 and the data starts in row 3. Process every row, not a sample. Use Python if needed.',
+      '',
+      'Create a new Excel file for me to download. It must contain one worksheet called "Drafts" with one row per manager.',
+      '',
+      'Step 1: Filter the data',
+      '- Keep only rows where "Course Status" is "Not started", "In progress" or "Enrolled".',
+      '- Keep only rows where "Course Name" starts with "Compliance:".',
+      '- Remove any row where "Course Name" contains @@EX@@.',
+      '- Remove any row where "Manager electronic address" is blank.',
+      '',
+      'Step 2: Clean the names',
+      '- Manager name: take the "Manager" column and remove the employee number at the end (for example "Sam Taylor 12345" becomes "Sam Taylor").',
+      '- Team member name: take the "Employee Name" column and remove the number pattern at the end (for example "Jordan Lee 54321 - 54321" becomes "Jordan Lee").',
+      '- Course name: remove "Compliance:" from the start and collapse any double spaces.',
+      '',
+      'Step 3: Group by manager name and manager email. Create these columns in this order, using these exact column names:',
+      '- ManagerName',
+      '- ManagerFirstName: the first word of ManagerName',
+      '- ManagerEmail',
+      '- TeamMembers: number of unique team members with outstanding courses',
+      '- OutstandingCourses: number of outstanding course rows',
+      '- TeamTable: an HTML table (see Step 4)',
+      '',
+      'Step 4: Build TeamTable for each manager',
+      'Start with: <table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:10pt;margin-bottom:16px;">',
+      'Add a header row with three columns: Team member, Course, Status. Give each header cell align="left" bgcolor="#F2F2F2".',
+      'Add one row per outstanding course. Sort by team member surname, then course name. Show the team member\'s name only on their first row and leave that cell blank on their following rows.',
+      'List every outstanding course. Do not summarise or shorten. TeamTable must contain only the table, no other text.',
+      '',
+      'Step 5: Format the data on the Drafts worksheet as an Excel table named "Drafts". Give me the file to download, and tell me how many manager rows were created and the total of the OutstandingCourses column.'
+    ];
+    var body = lines.join("\n");
+    if (highlight) return esc(body).replace("@@EX@@", ex);
+    return body.replace("@@EX@@", ex);
+  }
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  /* ---------- step content ---------- */
+  // Each step: id, title, why (optional), checks [{id, html}], extra (optional html builder)
+  var STEPS = {
+    quarter: [
+      { id: "q1", title: "Export the report from Dayforce", checks: [
+        { id: "a", html: 'In Dayforce, go to:<div class="path"><span>Reporting and Analytics</span><span>Reporting</span><span>Classic Reports</span><span>Learning</span><span>Training Stats_Master_Compliance (Current)</span></div>' },
+        { id: "b", html: 'Export it to Excel and save it to your computer.' }
+      ]},
+      { id: "q2", title: "Open Copilot", checks: [
+        { id: "a", html: '<a href="' + COPILOT_URL + '" target="_blank" rel="noopener">Open Copilot in a new tab</a>. You can also open it in Teams by clicking <span class="ui">Copilot</span> in the left-hand menu.' }
+      ]},
+      { id: "q3", title: "Upload the report and paste in the prompt",
+        why: "The prompt below already has this quarter's financial year in it. The highlighted part changes when you change the year at the top.",
+        checks: [
+          { id: "a", html: 'Click the paperclip or <span class="ui">+</span> icon in the Copilot message box. Upload the Dayforce file from Step 1.' },
+          { id: "b", html: 'Click <span class="ui">Copy prompt</span> below. Paste it into the Copilot message box and press Enter.' }
+        ],
+        extra: function () {
+          return '<div class="prompt-wrap"><div class="prompt-bar"><span>Copilot prompt for <b class="qlabel"></b></span>' +
+            '<button class="copy" type="button" data-copy="prompt">Copy prompt</button></div>' +
+            '<pre class="prompt" id="prompt"></pre></div>';
+        }
+      },
+      { id: "q4", title: "Download and check the file", checks: [
+        { id: "a", html: 'When Copilot finishes, click the file it gives you to download it.' },
+        { id: "b", html: 'Copilot tells you how many managers it found. <b>Type that number in the box below.</b> The page keeps it for Step 7.' },
+        { id: "c", html: 'Open the file. Check the headings across the top read exactly:<div class="value-row"><span class="value">ManagerName</span><span class="value">ManagerFirstName</span><span class="value">ManagerEmail</span><span class="value">TeamMembers</span><span class="value">OutstandingCourses</span><span class="value">TeamTable</span></div>' },
+        { id: "d", html: 'Pick two managers. Look them up in the Dayforce report and check the names and courses match.' },
+        { id: "e", html: 'Click on any cell with data in it. A <span class="ui">Table Design</span> tab should appear at the top of Excel, with the Table Name <span class="ui">Drafts</span>.<div class="note"><strong>If it doesn\'t appear:</strong> click <span class="ui">Insert</span> › <span class="ui">Table</span> › <span class="ui">OK</span>. Then type <span class="ui">Drafts</span> in the Table Name box on the Table Design tab.</div>' },
+        { id: "f", html: 'Save and close the file.' }
+      ],
+        extra: function () {
+          return '<div class="record">' +
+            '<div><label for="managers">Managers Copilot found</label><input id="managers" type="number" inputmode="numeric" min="0" placeholder="0"></div>' +
+            '<div><label for="courses">Total outstanding courses</label><input id="courses" type="number" inputmode="numeric" min="0" placeholder="0"></div>' +
+            '</div>';
+        }
+      },
+      { id: "q5", title: "Replace last quarter's file in OneDrive", checks: [
+        { id: "a", html: 'Rename the file so it matches exactly:<div class="value-row"><span class="value">Compliance_Drafts.xlsx</span><button class="copy" type="button" data-copy="filename">Copy name</button></div>' },
+        { id: "b", html: 'Go to OneDrive and click <span class="ui">Upload</span> › <span class="ui">Files</span>. Choose the file.' },
+        { id: "c", html: 'OneDrive will say a file with that name already exists. Choose <span class="ui">Replace</span>.' }
+      ]},
+      { id: "q6", title: "Run the flow", checks: [
+        { id: "a", html: 'Go to <a href="https://make.powerautomate.com" target="_blank" rel="noopener">make.powerautomate.com</a> and click <span class="ui">My flows</span>.' },
+        { id: "b", html: 'Find <span class="ui">Compliance Manager Emails</span> and click <span class="ui">Run</span> (the play icon).' },
+        { id: "c", html: 'Type the quarter and the due date:<div class="value-row"><span class="value qlabel"></span><button class="copy" type="button" data-copy="quarter">Copy quarter</button></div><div class="value-row"><span class="value" id="due-value"></span><button class="copy" type="button" data-copy="due" id="due-copy">Copy due date</button></div>' },
+        { id: "d", html: 'Click <span class="ui">Run flow</span>. Wait for the green tick.' }
+      ]},
+      { id: "q7", title: "Check your Outlook Drafts folder", checks: [
+        { id: "a", html: 'Count the new drafts and type the number below. It should match the number Copilot gave you in Step 4.' },
+        { id: "b", html: 'Open a few and check they read correctly. Each should start with a first name and show a table of names and courses.' }
+      ],
+        extra: function () {
+          return '<div class="compare">' +
+            '<div class="record" style="margin:0;padding:0;background:none">' +
+              '<div><label>Copilot said</label><div class="big" id="expected">–</div></div>' +
+              '<div><label for="drafts">Drafts in Outlook</label><input id="drafts" type="number" inputmode="numeric" min="0" placeholder="0"></div>' +
+            '</div>' +
+            '<div class="verdict" id="verdict" hidden></div>' +
+          '</div>' +
+          '<details class="trouble" id="trouble"><summary>If something looks wrong</summary><dl>' +
+            '<dt>Fewer drafts than expected</dt><dd>Pagination may be off. Open the flow, click <span class="ui">List rows present in a table</span>, then the <span class="ui">Settings</span> tab. Check it\'s on with Threshold 500.</dd>' +
+            '<dt>The email shows a number instead of a table, or a full name instead of a first name</dt><dd>The column headings in the Copilot file don\'t match. Go back to <a href="#step-q4">Step 4</a> and check them.</dd>' +
+            '<dt>All emails are addressed to you</dt><dd>The To field wasn\'t switched back. Follow <a href="#" data-goto="setup" data-step="s6">First-time setup, Step 6</a>.</dd>' +
+          '</dl></details>';
+        }
+      },
+      { id: "q8", title: "Send", checks: [
+        { id: "a", html: 'Send the drafts when you\'re ready.' }
+      ]}
+    ],
+
+    setup: [
+      { id: "s1", title: "Save the practice file to OneDrive", checks: [
+        { id: "a", html: 'Open the email from Liv and download <span class="ui">Compliance_Drafts.xlsx</span>.' },
+        { id: "b", html: 'Go to OneDrive. It\'s your Microsoft cloud storage, in the app launcher at the top left of Outlook.' },
+        { id: "c", html: 'Click <span class="ui">Upload</span> › <span class="ui">Files</span> and choose <span class="ui">Compliance_Drafts.xlsx</span>.' }
+      ]},
+      { id: "s2", title: "Open the flow", why: "A flow is the automation that creates the emails.", checks: [
+        { id: "a", html: 'You\'ll get an email saying a copy of a flow has been sent to you. Click the link in it.' },
+        { id: "b", html: 'Can\'t find the email? Go to <a href="https://make.powerautomate.com" target="_blank" rel="noopener">make.powerautomate.com</a> and click <span class="ui">My flows</span> on the left.' },
+        { id: "c", html: 'Click <span class="ui">Compliance Manager Emails</span>, then click <span class="ui">Edit</span> at the top.' }
+      ]},
+      { id: "s3", title: "Sign in", checks: [
+        { id: "a", html: 'If you see a yellow or red warning about connections, click it and sign in with your Vocus login. You may need to do this twice, once for Excel and once for Outlook.' }
+      ]},
+      { id: "s4", title: "Point the flow to your file", checks: [
+        { id: "a", html: 'Click the box called <span class="ui">List rows present in a table</span>.' },
+        { id: "b", html: '<b>File:</b> click the small folder icon and choose <span class="ui">Compliance_Drafts.xlsx</span>.' },
+        { id: "c", html: '<b>Table:</b> click the dropdown and choose <span class="ui">Drafts</span>. Don\'t type it in.' },
+        { id: "d", html: 'Click the <span class="ui">Settings</span> tab in that same box. Check <span class="ui">Pagination</span> is on and <span class="ui">Threshold</span> says 500. This makes sure every manager gets an email, not just the first 256.' },
+        { id: "e", html: 'Click <span class="ui">Save</span> at the top, then refresh your browser page.' }
+      ]},
+      { id: "s5", title: "Do a test run, sent only to you", checks: [
+        { id: "a", html: 'Click the box called <span class="ui">Draft an email message</span>.' },
+        { id: "b", html: 'In the <span class="ui">To</span> field, click the small x on <span class="ui">ManagerEmail</span> to remove it. Type your own email address instead.' },
+        { id: "c", html: 'Click <span class="ui">Save</span>.' },
+        { id: "d", html: 'Click <span class="ui">Test</span> (top right), choose <span class="ui">Manually</span>, then click <span class="ui">Test</span>.' },
+        { id: "e", html: 'Type any quarter (for example Q1 FY27) and any date, then click <span class="ui">Run flow</span>.' },
+        { id: "f", html: 'Wait for the green tick. This can take a few minutes.' },
+        { id: "g", html: 'Open your Outlook Drafts folder. You should see <b>238 drafts</b>, all addressed to you.' },
+        { id: "h", html: 'Open a few. Each should start with a first name (for example "Hi Sam,") and show a table of names and courses.' },
+        { id: "i", html: 'Select all the test drafts and delete them.' }
+      ]},
+      { id: "s6", title: "Switch back to the real addresses", warn: true,
+        lead: '<div class="stop"><h4>Don\'t skip this step</h4><p>If you skip it, every email goes to you instead of the managers. Setup isn\'t finished until you\'ve done it.</p></div>',
+        checks: [
+          { id: "a", html: 'Click the <span class="ui">Draft an email message</span> box.' },
+          { id: "b", html: 'Delete your email address from the <span class="ui">To</span> field.' },
+          { id: "c", html: 'Click inside the <span class="ui">To</span> field, then click the small blue lightning bolt that appears.' },
+          { id: "d", html: 'Choose <span class="ui">ManagerEmail</span> from the list.' },
+          { id: "e", html: 'Click <span class="ui">Save</span>.' }
+        ],
+        extra: function () {
+          return '<div class="gate">' +
+            '<label class="check"><input type="checkbox" id="gate-confirm"><span class="check-text"><b>I\'ve looked at the To field. It shows ManagerEmail and not my own address.</b></span></label>' +
+            '<button class="finish" type="button" id="finish-setup" disabled>Finish setup</button>' +
+            '<p class="finish-note" id="finish-note">Tick every item in Step 6 and the box above first.</p>' +
+          '</div>';
+        }
+      }
+    ]
+  };
+
+  /* ---------- render ---------- */
+  function checksFor(mode) { return mode === "setup" ? state.setup : qState().checks; }
+
+  function renderSteps(mode) {
+    var host = document.getElementById("steps-" + mode);
+    host.innerHTML = STEPS[mode].map(function (s, i) {
+      var items = s.checks.map(function (c) {
+        var key = s.id + "." + c.id;
+        return '<li><label class="check"><input type="checkbox" data-key="' + key + '" data-mode="' + mode + '">' +
+          '<span class="check-text">' + c.html + '</span></label></li>';
+      }).join("");
+      return '<section class="step" id="step-' + s.id + '" data-step="' + s.id + '">' +
+        '<div class="step-num" aria-hidden="true">' + (i + 1) + '</div>' +
+        '<div><h3>Step ' + (i + 1) + ': ' + s.title + '<span class="done-flag" hidden>Done</span></h3>' +
+        (s.why ? '<p class="why">' + s.why + '</p>' : '') +
+        (s.lead || '') +
+        '<ul class="checks">' + items + '</ul>' +
+        (s.extra ? s.extra() : '') +
+        '</div></section>';
+    }).join("") + (mode === "setup"
+      ? '<div class="finale" id="setup-finale" hidden><p>Setup is done. From now on you only need <a href="#" data-goto="quarter">Every quarter</a>.</p></div>'
+      : '');
+  }
+
+  function stepDone(mode, s) {
+    var checks = checksFor(mode);
+    var all = s.checks.every(function (c) { return checks[s.id + "." + c.id]; });
+    if (mode === "setup" && s.id === "s6") return all && state.setupDone;
+    return all;
+  }
+
+  function renderRail() {}
+
+  function syncChecks() {
+    ["quarter", "setup"].forEach(function (mode) {
+      var checks = checksFor(mode);
+      document.querySelectorAll('input[data-mode="' + mode + '"]').forEach(function (el) {
+        el.checked = !!checks[el.dataset.key];
+      });
+      STEPS[mode].forEach(function (s) {
+        var el = document.getElementById("step-" + s.id);
+        var done = stepDone(mode, s);
+        el.classList.toggle("is-done", done);
+        el.querySelector(".done-flag").hidden = !done;
+      });
+    });
+    syncGate();
+    renderRail();
+  }
+
+  function syncGate() {
+    var s6 = STEPS.setup[5];
+    var allTicked = s6.checks.every(function (c) { return state.setup["s6." + c.id]; });
+    var gate = document.getElementById("gate-confirm");
+    var btn = document.getElementById("finish-setup");
+    var note = document.getElementById("finish-note");
+    gate.checked = !!state.setup.gate;
+    btn.disabled = !(allTicked && gate.checked) || state.setupDone;
+    btn.textContent = state.setupDone ? "Setup finished" : "Finish setup";
+    note.textContent = state.setupDone ? "You're set. Use Every quarter from now on."
+      : allTicked && gate.checked ? "Ready when you are."
+      : "Tick every item in Step 6 and the box above first.";
+    document.getElementById("setup-finale").hidden = !state.setupDone;
+  }
+
+  function syncQuarterFields() {
+    var label = quarterLabel();
+    document.querySelectorAll(".qlabel").forEach(function (el) { el.textContent = label; });
+    document.getElementById("prompt").innerHTML = promptText(true);
+    var due = dueLabel();
+    var dv = document.getElementById("due-value");
+    dv.textContent = due || "Set the due date at the top of the page first";
+    dv.className = due ? "value" : "why";
+    document.getElementById("due-copy").hidden = !due;
+    var qs = qState();
+    document.getElementById("managers").value = qs.managers || "";
+    document.getElementById("courses").value = qs.courses || "";
+    document.getElementById("drafts").value = qs.drafts || "";
+    syncCompare();
+  }
+
+  function syncCompare() {
+    var qs = qState();
+    document.getElementById("expected").textContent = qs.managers || "–";
+    var v = document.getElementById("verdict");
+    if (!qs.managers || !qs.drafts) { v.hidden = true; return; }
+    v.hidden = false;
+    var diff = qs.drafts - qs.managers;
+    if (diff === 0) {
+      v.className = "verdict ok";
+      v.textContent = "They match. Open a few to check how they read, then you're ready to send.";
+    } else {
+      v.className = "verdict bad";
+      v.textContent = (diff < 0 ? Math.abs(diff) + " fewer" : diff + " more") +
+        " drafts than Copilot found. Don't send yet. Check the list under If something looks wrong.";
+      document.getElementById("trouble").open = true;
+    }
+  }
+
+  function setMode(mode, stepId) {
+    state.mode = mode;
+    save();
+    document.querySelectorAll(".tab").forEach(function (t) {
+      t.setAttribute("aria-selected", t.dataset.mode === mode ? "true" : "false");
+      t.tabIndex = t.dataset.mode === mode ? 0 : -1;
+    });
+    document.getElementById("panel-quarter").hidden = mode !== "quarter";
+    document.getElementById("panel-setup").hidden = mode !== "setup";
+    document.getElementById("reset").textContent = mode === "setup" ? "Clear setup ticks" : "Clear ticks for " + quarterLabel();
+    renderRail();
+    if (stepId) {
+      var el = document.getElementById("step-" + stepId);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
+  /* ---------- copy ---------- */
+  function copyText(text, btn) {
+    function done() {
+      var old = btn.textContent;
+      btn.classList.add("copied"); btn.textContent = "Copied";
+      setTimeout(function () { btn.classList.remove("copied"); btn.textContent = old; }, 1600);
+    }
+    function fallback() {
+      // Clipboard API is often blocked inside an embedded frame.
+      var ta = document.createElement("textarea");
+      ta.value = text; ta.setAttribute("readonly", "");
+      ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done(); } catch (e) { btn.textContent = "Select and copy by hand"; }
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else { fallback(); }
+  }
+
+  /* ---------- events ---------- */
+  renderSteps("quarter");
+  renderSteps("setup");
+
+  document.addEventListener("change", function (e) {
+    var el = e.target;
+    if (el.dataset && el.dataset.key) {
+      checksFor(el.dataset.mode)[el.dataset.key] = el.checked;
+      if (el.dataset.mode === "setup" && el.dataset.key.indexOf("s6.") === 0 && !el.checked) state.setupDone = false;
+      save(); syncChecks();
+    } else if (el.id === "gate-confirm") {
+      state.setup.gate = el.checked;
+      if (!el.checked) state.setupDone = false;
+      save(); syncChecks();
+    }
+  });
+
+  document.addEventListener("input", function (e) {
+    var id = e.target.id, qs;
+    if (id === "q" || id === "fy" || id === "due") {
+      state.current = { q: qSel.value, fy: fyNum(), due: dueIn.value };
+      save(); syncQuarterFields(); syncChecks(); setMode(state.mode);
+    } else if (id === "managers" || id === "courses" || id === "drafts") {
+      qs = qState();
+      var n = parseInt(e.target.value, 10);
+      qs[id] = isNaN(n) ? null : n;
+      save(); syncCompare(); renderRail();
+    }
+  });
+  qSel.addEventListener("change", function () { qSel.dispatchEvent(new Event("input", { bubbles: true })); });
+
+  document.addEventListener("click", function (e) {
+    var t = e.target.closest("[data-copy], [data-goto], .tab, #finish-setup, #reset");
+    if (!t) return;
+    if (t.dataset.copy) {
+      var map = {
+        prompt: function () { return promptText(false); },
+        filename: function () { return "Compliance_Drafts.xlsx"; },
+        quarter: quarterLabel,
+        due: dueLabel
+      };
+      copyText(map[t.dataset.copy](), t);
+    } else if (t.dataset.goto) {
+      e.preventDefault(); setMode(t.dataset.goto, t.dataset.step || null);
+      if (!t.dataset.step) window.scrollTo({ top: 0, behavior: "smooth" });
+    } else if (t.classList.contains("tab")) {
+      setMode(t.dataset.mode);
+    } else if (t.id === "finish-setup") {
+      state.setupDone = true; save(); syncChecks();
+    } else if (t.id === "reset") {
+      var label = state.mode === "setup" ? "setup" : quarterLabel();
+      if (!confirm("Clear all ticks for " + label + "?")) return;
+      if (state.mode === "setup") { state.setup = {}; state.setupDone = false; }
+      else { state.quarters[quarterLabel()] = { checks: {} }; }
+      save(); syncQuarterFields(); syncChecks();
+    }
+  });
+
+  // Arrow keys move between tabs.
+  document.querySelector(".tabs").addEventListener("keydown", function (e) {
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+    var next = state.mode === "quarter" ? "setup" : "quarter";
+    setMode(next); document.getElementById("tab-" + next).focus();
+  });
+
+  // First visit opens on setup. After that, the last section used.
+  if (!state.mode) state.mode = state.setupDone ? "quarter" : "setup";
+  syncQuarterFields();
+  syncChecks();
+  setMode(state.mode);
+})();
+</script>
+</body>
+</html>
