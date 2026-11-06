@@ -306,7 +306,7 @@
   var STEPS = {
     quarter: [
       { id: "q1", title: "Export the report from Dayforce", checks: [
-        { id: "a", html: 'In Dayforce, go to:<div class="path"><span>Reporting and Analytics</span><span>Reporting</span><span>Classic Reports</span><span>Learning</span><span>Training Stats_Master_Compliance (Current)</span></div>' },
+        { id: "a", html: 'In Dayforce, go to:<div class="path"><span>Reporting and Analytics</span><span>Reporting</span><span>Classic Reports</span><span>Learning</span><span>Training Stats_Master_Compliance (Current)</span></div><div class="note">It may show as <strong>Training Stats_Master_Compliance_Admin (Current)</strong>. That\'s the same report.</div>' },
         { id: "b", html: 'Export it to Excel and save it to your computer.' }
       ]},
       { id: "q2", title: "Open Copilot", checks: [
@@ -402,7 +402,7 @@
         { id: "d", html: 'Click <span class="ui">Test</span> (top right), choose <span class="ui">Manually</span>, then click <span class="ui">Test</span>.' },
         { id: "e", html: 'Type any quarter (for example Q1 FY27) and any date, then click <span class="ui">Run flow</span>.' },
         { id: "f", html: 'Wait for the green tick. This can take a few minutes.' },
-        { id: "g", html: 'Open your Outlook Drafts folder. You should see <b>238 drafts</b>, all addressed to you.' },
+        { id: "g", html: 'Open your Outlook Drafts folder. You should see <b>one draft for every manager in the practice file</b>, all addressed to you.' },
         { id: "h", html: 'Open a few. Each should start with a first name (for example "Hi Sam,") and show a table of names and courses.' },
         { id: "i", html: 'Select all the test drafts and delete them.' }
       ]},
