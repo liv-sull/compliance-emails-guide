@@ -119,6 +119,12 @@
   details.trouble dt { font-weight: 700; margin-top: 10px; }
   details.trouble dd { margin: 2px 0 0; }
 
+  details.oneoff { border: 2px solid var(--blue); padding: 12px 18px; margin: 20px 0 4px; }
+  details.oneoff summary { cursor: pointer; font-weight: 700; color: var(--blue); }
+  details.oneoff ol { margin: 8px 0 4px; padding-left: 22px; }
+  details.oneoff li { margin: 4px 0; }
+  details.oneoff p { margin: 8px 0 0; }
+
   .finale { padding: 24px 0 0; }
   .finale p { margin: 0; font-weight: 500; color: var(--blue); }
 
@@ -160,6 +166,19 @@
   <main>
     <section id="panel-quarter">
       <p class="intro">Work through these in order, about 20 minutes. Your ticks are saved for <b class="qlabel">this quarter</b>, so you can close the page and pick up where you left off.</p>
+      <details class="oneoff">
+        <summary>One-off change: send from the Learning mailbox</summary>
+        <p>Do this once in your flow. After that, every draft comes from Learning.</p>
+        <ol>
+          <li>Go to <a href="https://make.powerautomate.com" target="_blank" rel="noopener">make.powerautomate.com</a> and click <span class="ui">My flows</span>.</li>
+          <li>Click <span class="ui">Compliance Manager Emails</span>, then <span class="ui">Edit</span> at the top.</li>
+          <li>Click the box called <span class="ui">Draft an email message</span>.</li>
+          <li>Click <span class="ui">Show all</span> (it may say <span class="ui">Advanced parameters</span>) and choose <span class="ui">From (Send as)</span>.</li>
+          <li>Type the Learning mailbox address in the <span class="ui">From (Send as)</span> field.</li>
+          <li>Leave the <span class="ui">To</span> field alone. It must still show <span class="ui">ManagerEmail</span>.</li>
+          <li>Click <span class="ui">Save</span>.</li>
+        </ol>
+      </details>
       <div id="steps-quarter"></div>
     </section>
 
@@ -342,9 +361,9 @@
         }
       },
       { id: "q8", title: "Send from the Learning mailbox", checks: [
-        { id: "a", html: 'Open the first draft. Click <span class="ui">From</span> and choose the Learning mailbox.<div class="note"><strong>Can\'t see From?</strong> Click <span class="ui">Options</span> › <span class="ui">Show From</span>.</div>' },
-        { id: "b", html: 'Check the email reads correctly, then click <span class="ui">Send</span>.' },
-        { id: "c", html: 'Repeat for each draft. Outlook can\'t change the From address or send drafts in bulk, so they go one at a time.' }
+        { id: "a", html: 'Open one draft and check the <span class="ui">From</span> field shows the Learning mailbox.<div class="note"><strong>Shows your own address?</strong> Do the one-off change at the top of this page, delete the drafts and run the flow again.</div>' },
+        { id: "b", html: 'In your Drafts folder, click the first draft in a batch. Hold <span class="ui">Shift</span> and click the last one.' },
+        { id: "c", html: 'Click <span class="ui">Send</span>. Repeat batch by batch until the Drafts folder is empty.' }
       ]}
     ]
   };
