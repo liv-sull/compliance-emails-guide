@@ -174,7 +174,7 @@
           <li>Click <span class="ui">Compliance Manager Emails</span>, then <span class="ui">Edit</span> at the top.</li>
           <li>Click the box called <span class="ui">Draft an email message</span>.</li>
           <li>Click <span class="ui">Show all</span> (it may say <span class="ui">Advanced parameters</span>) and choose <span class="ui">From (Send as)</span>.</li>
-          <li>Type the Learning mailbox address in the <span class="ui">From (Send as)</span> field.</li>
+          <li>Type the Learning mailbox address in the <span class="ui">From (Send as)</span> field:<div class="value-row"><span class="value">learning@vocus.com.au</span><button class="copy" type="button" data-copy="learning">Copy address</button></div></li>
           <li>Leave the <span class="ui">To</span> field alone. It must still show <span class="ui">ManagerEmail</span>.</li>
           <li>Click <span class="ui">Save</span>.</li>
         </ol>
@@ -361,7 +361,7 @@
         }
       },
       { id: "q8", title: "Send from the Learning mailbox", checks: [
-        { id: "a", html: 'Open one draft and check the <span class="ui">From</span> field shows the Learning mailbox.<div class="note"><strong>Shows your own address?</strong> Do the one-off change at the top of this page, delete the drafts and run the flow again.</div>' },
+        { id: "a", html: 'Open one draft and check the <span class="ui">From</span> field shows <span class="ui">learning@vocus.com.au</span>.<div class="note"><strong>Shows your own address?</strong> Do the one-off change at the top of this page, delete the drafts and run the flow again.</div>' },
         { id: "b", html: 'In your Drafts folder, click the first draft in a batch. Hold <span class="ui">Shift</span> and click the last one.' },
         { id: "c", html: 'Click <span class="ui">Send</span>. Repeat batch by batch until the Drafts folder is empty.' }
       ]}
@@ -498,6 +498,7 @@
       var map = {
         prompt: function () { return promptText(false); },
         filename: function () { return "Compliance_Drafts.xlsx"; },
+        learning: function () { return "learning@vocus.com.au"; },
         quarter: quarterLabel,
         due: dueLabel
       };
