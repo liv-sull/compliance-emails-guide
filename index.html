@@ -50,14 +50,6 @@
   .fy-wrap input { width: 80px; min-width: 0; }
   .hint { font-size: 14px; color: #555; margin: 12px 0 0; }
 
-  .tabs { display: flex; gap: 28px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
-  .tab {
-    background: none; border: 0; padding: 10px 0; cursor: pointer;
-    font-size: 17px; font-weight: 500; color: #555;
-    border-bottom: 3px solid transparent; margin-bottom: -1px;
-  }
-  .tab[aria-selected="true"] { color: var(--blue); border-bottom-color: var(--blue); }
-  .tab small { font-weight: 400; font-size: 14px; margin-left: 4px; }
 
   .intro { margin: 20px 0 4px; }
   .intro-sub { margin: 0 0 8px; color: #555; }
@@ -92,16 +84,9 @@
 
   .note { background: var(--grey); padding: 10px 14px; margin-top: 8px; font-size: 15px; }
 
-  .stop, .gate { border: 2px solid var(--blue); padding: 14px 18px; margin: 4px 0 12px; }
-  .gate { margin-top: 14px; }
+  .stop { border: 2px solid var(--blue); padding: 14px 18px; margin: 4px 0 12px; }
   .stop h4 { margin: 0 0 4px; font-size: 17px; }
   .stop p { margin: 0; }
-  .finish {
-    margin-top: 10px; background: var(--blue); color: #fff; border: 0;
-    padding: 10px 18px; font-weight: 500; cursor: pointer;
-  }
-  .finish:disabled { background: #A6A6A6; cursor: not-allowed; }
-  .finish-note { font-size: 14px; margin: 6px 0 0; color: #555; }
 
   .value-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; align-items: center; }
   .value { font-family: var(--mono); font-size: 14px; background: var(--grey); padding: 4px 8px; }
@@ -142,8 +127,6 @@
   @media (max-width: 600px) {
     .page { padding: 24px 16px 60px; }
     h1 { font-size: 28px; }
-    .tabs { gap: 18px; }
-    .tab small { display: none; }
   }
 </style>
 </head>
@@ -174,23 +157,12 @@
     <p class="hint">Fill these in once. The page puts them into the Copilot prompt and the flow for you.</p>
   </section>
 
-  <nav class="tabs" role="tablist" aria-label="Guide sections">
-    <button class="tab" role="tab" id="tab-quarter" aria-controls="panel-quarter" data-mode="quarter">Every quarter <small>about 20 min</small></button>
-    <button class="tab" role="tab" id="tab-setup" aria-controls="panel-setup" data-mode="setup">First-time setup <small>once, about 15 min</small></button>
-  </nav>
-
   <main>
-    <section id="panel-quarter" role="tabpanel" aria-labelledby="tab-quarter">
-      <p class="intro">Work through these in order. Your ticks are saved for <b class="qlabel">this quarter</b>, so you can close the page and pick up where you left off.</p>
-      <p class="intro-sub">First time? Do <a href="#" data-goto="setup">First-time setup</a> before anything here.</p>
+    <section id="panel-quarter">
+      <p class="intro">Work through these in order, about 20 minutes. Your ticks are saved for <b class="qlabel">this quarter</b>, so you can close the page and pick up where you left off.</p>
       <div id="steps-quarter"></div>
     </section>
 
-    <section id="panel-setup" role="tabpanel" aria-labelledby="tab-setup" hidden>
-      <p class="intro">You only do this once. It connects the flow to your OneDrive and Outlook, then runs a test that sends everything to you.</p>
-      <p class="intro-sub">Step 6 is the one that matters most.</p>
-      <div id="steps-setup"></div>
-    </section>
 
     <button class="reset" id="reset" type="button">Clear ticks for this section</button>
   </main>
@@ -205,7 +177,7 @@
   var STORE_KEY = "vocus-compliance-guide-v1";
 
   /* ---------- saved state (falls back to memory if storage is blocked) ---------- */
-  var state = { mode: null, setupDone: false, setup: {}, quarters: {}, current: {} };
+  var state = { quarters: {}, current: {} };
   try {
     var saved = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
     if (saved && typeof saved === "object") state = Object.assign(state, saved);
@@ -365,69 +337,20 @@
           '<details class="trouble" id="trouble"><summary>If something looks wrong</summary><dl>' +
             '<dt>Fewer drafts than expected</dt><dd>Pagination may be off. Open the flow, click <span class="ui">List rows present in a table</span>, then the <span class="ui">Settings</span> tab. Check it\'s on with Threshold 500.</dd>' +
             '<dt>The email shows a number instead of a table, or a full name instead of a first name</dt><dd>The column headings in the Copilot file don\'t match. Go back to <a href="#step-q4">Step 4</a> and check them.</dd>' +
-            '<dt>All emails are addressed to you</dt><dd>The To field wasn\'t switched back. Follow <a href="#" data-goto="setup" data-step="s6">First-time setup, Step 6</a>.</dd>' +
+            '<dt>All emails are addressed to you</dt><dd>The To field in the flow has your address in it. Open the flow and click <span class="ui">Draft an email message</span>. Delete your address from <span class="ui">To</span>, click the blue lightning bolt and choose <span class="ui">ManagerEmail</span>. Save, delete the drafts and run the flow again.</dd>' +
           '</dl></details>';
         }
       },
-      { id: "q8", title: "Send", checks: [
-        { id: "a", html: 'Send the drafts when you\'re ready.' }
+      { id: "q8", title: "Send from the Learning mailbox", checks: [
+        { id: "a", html: 'Open the first draft. Click <span class="ui">From</span> and choose the Learning mailbox.<div class="note"><strong>Can\'t see From?</strong> Click <span class="ui">Options</span> › <span class="ui">Show From</span>.</div>' },
+        { id: "b", html: 'Check the email reads correctly, then click <span class="ui">Send</span>.' },
+        { id: "c", html: 'Repeat for each draft. Outlook can\'t change the From address or send drafts in bulk, so they go one at a time.' }
       ]}
-    ],
-
-    setup: [
-      { id: "s1", title: "Save the practice file to OneDrive", checks: [
-        { id: "a", html: 'Open the email from Liv and download <span class="ui">Compliance_Drafts.xlsx</span>.' },
-        { id: "b", html: 'Go to OneDrive. It\'s your Microsoft cloud storage, in the app launcher at the top left of Outlook.' },
-        { id: "c", html: 'Click <span class="ui">Upload</span> › <span class="ui">Files</span> and choose <span class="ui">Compliance_Drafts.xlsx</span>.' }
-      ]},
-      { id: "s2", title: "Open the flow", why: "A flow is the automation that creates the emails.", checks: [
-        { id: "a", html: 'You\'ll get an email saying a copy of a flow has been sent to you. Click the link in it.' },
-        { id: "b", html: 'Can\'t find the email? Go to <a href="https://make.powerautomate.com" target="_blank" rel="noopener">make.powerautomate.com</a> and click <span class="ui">My flows</span> on the left.' },
-        { id: "c", html: 'Click <span class="ui">Compliance Manager Emails</span>, then click <span class="ui">Edit</span> at the top.' }
-      ]},
-      { id: "s3", title: "Sign in", checks: [
-        { id: "a", html: 'If you see a yellow or red warning about connections, click it and sign in with your Vocus login. You may need to do this twice, once for Excel and once for Outlook.' }
-      ]},
-      { id: "s4", title: "Point the flow to your file", checks: [
-        { id: "a", html: 'Click the box called <span class="ui">List rows present in a table</span>.' },
-        { id: "b", html: '<b>File:</b> click the small folder icon and choose <span class="ui">Compliance_Drafts.xlsx</span>.' },
-        { id: "c", html: '<b>Table:</b> click the dropdown and choose <span class="ui">Drafts</span>. Don\'t type it in.' },
-        { id: "d", html: 'Click the <span class="ui">Settings</span> tab in that same box. Check <span class="ui">Pagination</span> is on and <span class="ui">Threshold</span> says 500. This makes sure every manager gets an email, not just the first 256.' },
-        { id: "e", html: 'Click <span class="ui">Save</span> at the top, then refresh your browser page.' }
-      ]},
-      { id: "s5", title: "Do a test run, sent only to you", checks: [
-        { id: "a", html: 'Click the box called <span class="ui">Draft an email message</span>.' },
-        { id: "b", html: 'In the <span class="ui">To</span> field, click the small x on <span class="ui">ManagerEmail</span> to remove it. Type your own email address instead.' },
-        { id: "c", html: 'Click <span class="ui">Save</span>.' },
-        { id: "d", html: 'Click <span class="ui">Test</span> (top right), choose <span class="ui">Manually</span>, then click <span class="ui">Test</span>.' },
-        { id: "e", html: 'Type any quarter (for example Q1 FY27) and any date, then click <span class="ui">Run flow</span>.' },
-        { id: "f", html: 'Wait for the green tick. This can take a few minutes.' },
-        { id: "g", html: 'Open your Outlook Drafts folder. You should see <b>one draft for every manager in the practice file</b>, all addressed to you.' },
-        { id: "h", html: 'Open a few. Each should start with a first name (for example "Hi Sam,") and show a table of names and courses.' },
-        { id: "i", html: 'Select all the test drafts and delete them.' }
-      ]},
-      { id: "s6", title: "Switch back to the real addresses", warn: true,
-        lead: '<div class="stop"><h4>Don\'t skip this step</h4><p>If you skip it, every email goes to you instead of the managers. Setup isn\'t finished until you\'ve done it.</p></div>',
-        checks: [
-          { id: "a", html: 'Click the <span class="ui">Draft an email message</span> box.' },
-          { id: "b", html: 'Delete your email address from the <span class="ui">To</span> field.' },
-          { id: "c", html: 'Click inside the <span class="ui">To</span> field, then click the small blue lightning bolt that appears.' },
-          { id: "d", html: 'Choose <span class="ui">ManagerEmail</span> from the list.' },
-          { id: "e", html: 'Click <span class="ui">Save</span>.' }
-        ],
-        extra: function () {
-          return '<div class="gate">' +
-            '<label class="check"><input type="checkbox" id="gate-confirm"><span class="check-text"><b>I\'ve looked at the To field. It shows ManagerEmail and not my own address.</b></span></label>' +
-            '<button class="finish" type="button" id="finish-setup" disabled>Finish setup</button>' +
-            '<p class="finish-note" id="finish-note">Tick every item in Step 6 and the box above first.</p>' +
-          '</div>';
-        }
-      }
     ]
   };
 
   /* ---------- render ---------- */
-  function checksFor(mode) { return mode === "setup" ? state.setup : qState().checks; }
+  function checksFor() { return qState().checks; }
 
   function renderSteps(mode) {
     var host = document.getElementById("steps-" + mode);
@@ -445,22 +368,17 @@
         '<ul class="checks">' + items + '</ul>' +
         (s.extra ? s.extra() : '') +
         '</div></section>';
-    }).join("") + (mode === "setup"
-      ? '<div class="finale" id="setup-finale" hidden><p>Setup is done. From now on you only need <a href="#" data-goto="quarter">Every quarter</a>.</p></div>'
-      : '');
+    }).join("");
   }
 
   function stepDone(mode, s) {
     var checks = checksFor(mode);
     var all = s.checks.every(function (c) { return checks[s.id + "." + c.id]; });
-    if (mode === "setup" && s.id === "s6") return all && state.setupDone;
     return all;
   }
 
-  function renderRail() {}
-
   function syncChecks() {
-    ["quarter", "setup"].forEach(function (mode) {
+    ["quarter"].forEach(function (mode) {
       var checks = checksFor(mode);
       document.querySelectorAll('input[data-mode="' + mode + '"]').forEach(function (el) {
         el.checked = !!checks[el.dataset.key];
@@ -472,23 +390,6 @@
         el.querySelector(".done-flag").hidden = !done;
       });
     });
-    syncGate();
-    renderRail();
-  }
-
-  function syncGate() {
-    var s6 = STEPS.setup[5];
-    var allTicked = s6.checks.every(function (c) { return state.setup["s6." + c.id]; });
-    var gate = document.getElementById("gate-confirm");
-    var btn = document.getElementById("finish-setup");
-    var note = document.getElementById("finish-note");
-    gate.checked = !!state.setup.gate;
-    btn.disabled = !(allTicked && gate.checked) || state.setupDone;
-    btn.textContent = state.setupDone ? "Setup finished" : "Finish setup";
-    note.textContent = state.setupDone ? "You're set. Use Every quarter from now on."
-      : allTicked && gate.checked ? "Ready when you are."
-      : "Tick every item in Step 6 and the box above first.";
-    document.getElementById("setup-finale").hidden = !state.setupDone;
   }
 
   function syncQuarterFields() {
@@ -525,23 +426,6 @@
     }
   }
 
-  function setMode(mode, stepId) {
-    state.mode = mode;
-    save();
-    document.querySelectorAll(".tab").forEach(function (t) {
-      t.setAttribute("aria-selected", t.dataset.mode === mode ? "true" : "false");
-      t.tabIndex = t.dataset.mode === mode ? 0 : -1;
-    });
-    document.getElementById("panel-quarter").hidden = mode !== "quarter";
-    document.getElementById("panel-setup").hidden = mode !== "setup";
-    document.getElementById("reset").textContent = mode === "setup" ? "Clear setup ticks" : "Clear ticks for " + quarterLabel();
-    renderRail();
-    if (stepId) {
-      var el = document.getElementById("step-" + stepId);
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  }
-
   /* ---------- copy ---------- */
   function copyText(text, btn) {
     function done() {
@@ -565,17 +449,11 @@
 
   /* ---------- events ---------- */
   renderSteps("quarter");
-  renderSteps("setup");
 
   document.addEventListener("change", function (e) {
     var el = e.target;
     if (el.dataset && el.dataset.key) {
       checksFor(el.dataset.mode)[el.dataset.key] = el.checked;
-      if (el.dataset.mode === "setup" && el.dataset.key.indexOf("s6.") === 0 && !el.checked) state.setupDone = false;
-      save(); syncChecks();
-    } else if (el.id === "gate-confirm") {
-      state.setup.gate = el.checked;
-      if (!el.checked) state.setupDone = false;
       save(); syncChecks();
     }
   });
@@ -584,18 +462,18 @@
     var id = e.target.id, qs;
     if (id === "q" || id === "fy" || id === "due") {
       state.current = { q: qSel.value, fy: fyNum(), due: dueIn.value };
-      save(); syncQuarterFields(); syncChecks(); setMode(state.mode);
+      save(); syncQuarterFields(); syncChecks(); syncReset();
     } else if (id === "managers" || id === "courses" || id === "drafts") {
       qs = qState();
       var n = parseInt(e.target.value, 10);
       qs[id] = isNaN(n) ? null : n;
-      save(); syncCompare(); renderRail();
+      save(); syncCompare();
     }
   });
   qSel.addEventListener("change", function () { qSel.dispatchEvent(new Event("input", { bubbles: true })); });
 
   document.addEventListener("click", function (e) {
-    var t = e.target.closest("[data-copy], [data-goto], .tab, #finish-setup, #reset");
+    var t = e.target.closest("[data-copy], #reset");
     if (!t) return;
     if (t.dataset.copy) {
       var map = {
@@ -605,34 +483,20 @@
         due: dueLabel
       };
       copyText(map[t.dataset.copy](), t);
-    } else if (t.dataset.goto) {
-      e.preventDefault(); setMode(t.dataset.goto, t.dataset.step || null);
-      if (!t.dataset.step) window.scrollTo({ top: 0, behavior: "smooth" });
-    } else if (t.classList.contains("tab")) {
-      setMode(t.dataset.mode);
-    } else if (t.id === "finish-setup") {
-      state.setupDone = true; save(); syncChecks();
     } else if (t.id === "reset") {
-      var label = state.mode === "setup" ? "setup" : quarterLabel();
-      if (!confirm("Clear all ticks for " + label + "?")) return;
-      if (state.mode === "setup") { state.setup = {}; state.setupDone = false; }
-      else { state.quarters[quarterLabel()] = { checks: {} }; }
+      if (!confirm("Clear all ticks for " + quarterLabel() + "?")) return;
+      state.quarters[quarterLabel()] = { checks: {} };
       save(); syncQuarterFields(); syncChecks();
     }
   });
 
-  // Arrow keys move between tabs.
-  document.querySelector(".tabs").addEventListener("keydown", function (e) {
-    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
-    var next = state.mode === "quarter" ? "setup" : "quarter";
-    setMode(next); document.getElementById("tab-" + next).focus();
-  });
+  function syncReset() {
+    document.getElementById("reset").textContent = "Clear ticks for " + quarterLabel();
+  }
 
-  // First visit opens on setup. After that, the last section used.
-  if (!state.mode) state.mode = state.setupDone ? "quarter" : "setup";
   syncQuarterFields();
   syncChecks();
-  setMode(state.mode);
+  syncReset();
 })();
 </script>
 </body>
